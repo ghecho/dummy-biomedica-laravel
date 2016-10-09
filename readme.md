@@ -1,12 +1,13 @@
 # Ejemplo de proyecto de Laravel para Biomédica
 
-# Downloading from GIT
-Once you download the git repository you must download the dependencies with:
+# Instrucciones de inicio
+Una vez que Laravel está correctamente instalado, hay algunos paso que se necesitan seguir para dejar funcionando el proyecto:
 
-	$ composer install	
-Then you need to configure the proyect for your machine with the .env file and add a random string to the `APP_KEY` with the following command:
-
-	$ php artisan cache:clear
-	$ php artisan key:generate
-
-Check that the same user that can run nginx own this folder as well as the php-fpm process(it can be root or your current user) and now we can test by going in our browser to the public folder, and if everything is okay we should se the welcome page, if not check your server log.
+1. Clonar el proyecto con `git clone https://github.com/ghecho/dummy-biomedica-laravel.git`
+2. Entrar al directorio `cd dummy-biomedica-laravel`
+3. Instalar las dependencias `composer install`
+4. Generar el archivo de configuración `cp .env.example .env`
+5. Regenerar el API_KEY de la aplicación
+	- `php artisan cache:clear`
+	- `php artisan key:generate`
+6. Arrancar el servidor web local `php artisan serve` (para detener el servidor, presionar `CONTROL + c`)
