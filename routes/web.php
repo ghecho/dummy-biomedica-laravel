@@ -22,15 +22,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/equipos', 'EquiposController@showAllEquipos');
-Route::get('/equipos/new', 'EquiposController@showNewEquipoForm');
-Route::post('/equipos/new', 'EquiposController@registerNewEquipo');
-Route::get('/equipos/{idEquipo}/delete', 'EquiposController@deleteEquipo');
-Route::get('/equipos/{idEquipo}', 'EquiposController@showEquipoDetails');
-Route::post('/equipos/{idEquipo}', 'EquiposController@editEquipoDetails');
+Route::get('/error-not-allowed', function () {
+    return view('error-not-allowed');
+});
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', function () {
 	    return "Home!!!";
-	}); 
+	});
+	Route::get('/equipos', 'EquiposController@showAllEquipos');
+	Route::get('/equipos/new', 'EquiposController@showNewEquipoForm');
+	Route::post('/equipos/new', 'EquiposController@registerNewEquipo');
+	Route::get('/equipos/{idEquipo}', 'EquiposController@showEquipoDetails');
+	Route::post('/equipos/{idEquipo}', 'EquiposController@editEquipoDetails');
+});
+
+Route::group(['middleware' => ['auth', 'admin']], function () {
+	Route::get('/equipos/{idEquipo}/delete', 'EquiposController@deleteEquipo');
 });
