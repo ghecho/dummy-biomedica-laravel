@@ -11,8 +11,6 @@
 |
 */
 
-use Illuminate\Http\Request;
-
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
     // Route::get('/login','Auth\AuthController@showLoginForm');
@@ -24,28 +22,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/equipos', function () {
-	$equipos = App\Equipo::get();
-    return view('equipos')->with('equipos', $equipos);
-});
-
-Route::get('/equipos/{idEquipo}', function ($idEquipo) {
-	// $equipo = App\Equipo::where('id', $idEquipo)->first();
-	$equipo = App\Equipo::find($idEquipo);
-    return view('equipo-detail')->with('equipo', $equipo);
-});
-
-Route::get('/equipos/new', function (Request $request) {
-	$name = $request->input('name');
-	$marca = $request->input('marca');
-	$modelo = $request->input('modelo');
-	$newEquipo = new App\Equipo;
-	$newEquipo->name = $name;
-	$newEquipo->marca = $marca;
-	$newEquipo->modelo = $modelo;
-	$newEquipo->save();
-    return redirect('/equipos');
-});
+Route::get('/equipos', 'EquiposController@showAllEquipos');
+Route::get('/equipos/new', 'EquiposController@showNewEquipoForm');
+Route::post('/equipos/new', 'EquiposController@registerNewEquipo');
+Route::get('/equipos/{idEquipo}/delete', 'EquiposController@deleteEquipo');
+Route::get('/equipos/{idEquipo}', 'EquiposController@showEquipoDetails');
+Route::post('/equipos/{idEquipo}', 'EquiposController@editEquipoDetails');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', function () {

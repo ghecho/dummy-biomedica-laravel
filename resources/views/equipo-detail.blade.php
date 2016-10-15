@@ -5,6 +5,7 @@
 </head>
 <body>
 <form action="/equipos/{{$equipo->id}}" method="POST">
+	{{ csrf_field() }}
 	<label>ID - {{$equipo->id}}</label>
 	<label>Name</label>
 	<input type="text" name="name" value="{{$equipo->name}}"><br>
